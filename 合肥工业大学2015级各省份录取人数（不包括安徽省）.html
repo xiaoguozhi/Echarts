@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="echarts-2.2.7/build/dist/echarts.js"></script>
+	<script src="echarts-2.2.7/build/dist/timelineOption.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'echarts-2.2.7/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块,按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom,初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+	title : {
+        text: '合肥工业大学2015级新生来源情况(安徽省除外)',
+        subtext: '厚德、笃学、崇实、尚新',
+        x:'center'},
+    legend: {
+        data:['各省录取人数'],
+		x:'left'
+		
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+	
+	 xAxis : [
+	{
+            type : 'category',
+            position: 'bottom',
+            //boundaryGap: true,
+            axisLabel : {
+                show:true,
+                interval: 'auto',    // {number}
+                rotate: 45,
+                margin: 8,
+                //formatter: '{value}月',
+                textStyle: {
+                    color: 'black',
+                    fontFamily: 'sans-serif',
+                    fontSize: 15,
+                    fontStyle: 'italic',
+                    fontWeight: 'bold'
+                }
+            },
+			data:['河南省','山东省','河北省',	'江苏省','山西省','江西省','浙江省','湖南省','四川省','甘肃省 ','湖北省','陕西省','广西区','福建省','贵州省','云南省','广东省',	'重庆市','辽宁省','天津市','黑龙江省','内蒙古','吉林省','宁夏区','青海省','海南省','新疆区','西藏区','上海市','北京市']
+        }
+		
+		
+            ],
+  /*  xAxis : [
+        {
+            type : 'category',
+			position: 'bottom',
+			axisLabel : {
+                show:true,
+                interval: 'auto',    // {number}
+                rotate: ,
+                margin: 8,
+                //formatter: '{value}月',
+                textStyle: {
+                    color: 'black',
+                    fontFamily: 'sans-serif',
+                    fontSize: 15,
+                    fontStyle: 'italic',
+                    fontWeight: 'bold'
+                }
+		       },
+           // boundaryGap : false,
+			data:['河南省','山东省','河北省',	'江苏省','山西省','江西省','浙江省','湖南省','四川省','甘肃省 ','湖北省','陕西省','广西区','福建省','贵州省','云南省','广东省',	'重庆市','辽宁省','天津市','黑龙江省','内蒙古','吉林省','宁夏区','青海省','海南省','新疆区','西藏区','上海市','北京市']]
+    }
+	],*/
+    yAxis : [
+        {
+            type : 'value',
+			name : '人数（单位：人）',
+			axisLabel : {
+                formatter: '{value} '
+            }
+        }
+    ],
+    series : [
+        {
+            name:'各省录取人数',
+            type:'bar',
+            //stack: '总量',
+			itemStyle: {
+                normal: {
+                    color: function(params) {
+                        // build a color map as your need.
+                        var colorList = [
+                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0',
+						   '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0',
+						   '#26C0C0'
+                        ];
+                        return colorList[params.dataIndex]
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{b}\n{c}'
+                    }
+                }
+				},
+            data:[	542	,399	,390	,328,	323,	312	,275,	273,	271,	 261	,259,	254,	232	, 201	,195,	162	,155	, 143	,134,132,	129,	125,	122,	 91	,90,	69,	67,	33,	29	,28]
+		}
+        
+    ]
+	
+};
+                    
+                    
+                    
+                    
+                    
+                    
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>

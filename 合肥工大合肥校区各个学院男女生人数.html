@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="echarts-2.2.7/build/dist/echarts.js"></script>
+	<script src="echarts-2.2.7/build/dist/timebarOption.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'echarts-2.2.7/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' ,
+				'echarts/chart/line'// 使用柱状图就加载bar模块,按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom,初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+				
+				
+				title : {
+        text: '合肥工业大学2015级合肥校区各学院男女生人数',
+        subtext: '厚德、笃学、崇实、尚新',
+        x:'center'},
+                tooltip : {
+                   trigger: 'axis'
+                         },
+           toolbox: {
+           show : true,
+           feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar','stack','tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+           }
+    },
+    calculable : true,
+    legend: {
+	    x : 'left',
+        data:['女生','男生','幸福指数（女生数人/男生人数）']
+    },
+    xAxis : [
+        {
+            axisLabel : {
+                show:true,
+                interval: 'auto',    // {number}
+                rotate: 35,
+                margin: 8,
+                //formatter: '{value}月',
+                textStyle: {
+                    color: 'black',
+                    fontFamily: 'sans-serif',
+                    fontSize: 15,
+                    fontStyle: 'italic',
+                    fontWeight: 'bold'
+                }
+            },
+			type : 'category',
+            data : ['交通学院','仪器学院','化工学院','医工学院','土木学院','外语学院','建艺学院','微电子学院','数学学院','机汽学院','材料学院','电物学院','电气学院','管理学院','经济学院','计算机学院','资环学院','软件学院','生物学院','马克思学院']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+			name : '人数（单位：人）',
+			axisLabel : {
+                formatter: '{value} '
+            }
+        },
+        {
+            type : 'value',
+            name : '幸福指数（女生人数/男生人数）',
+			max:6.5,
+            axisLabel : {
+                formatter: '{value} '
+            }
+        }
+    ],
+    series : [
+
+        {
+            name:'男生',
+            type:'bar',
+			itemStyle: {
+                normal: {
+                    color: function(params) {
+                        // build a color map as your need.
+                        var colorList = [
+                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0',
+						   '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
+                           
+                       
+                        ];
+                        return colorList[params.dataIndex]
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c}'//{b}\n
+                    }
+                }
+				},
+            data:[140, 180, 207, 119, 463, 16, 90, 197, 109, 616, 228, 107,229,112,189,323,192,76,154,24]
+			
+	    
+        },
+        {
+            name:'女生',
+            type:'bar',
+			itemStyle: {
+                normal: {
+                    color: function(params) {
+                        // build a color map as your need.
+                        var colorList = [
+                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0',
+						   '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
+                           
+                       
+                        ];
+                        return colorList[params.dataIndex]
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c}'//{b}\n
+                    }
+                }
+				},
+            data:[32, 43, 54, 60, 77, 102, 150, 32, 34, 80, 35,16,52,198,142,62,29,12,79,64]
+        },
+        {
+            name:'幸福指数（女生人数/男生人数）',
+            type:'line',
+            yAxisIndex: 1,
+            //stack: '总量',
+            smooth: true,
+            //symbol: 'image://love-png/little-boy-black.png',     // 系列级个性化拐点图形
+            symbolSize: 20,
+			itemStyle: {
+                normal: {
+                    color: function(params) {
+                        // build a color map as your need.
+                        var colorList = [
+                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0',
+						   '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
+                           
+                       
+                        ];
+                        return colorList[params.dataIndex]
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c}'//{b}\n
+                    }
+                }
+				},
+            data:[
+             {     
+			       value:0.23,
+				   symbol: 'image://love-png/0.png',
+				   symbolSize:15
+			
+			},		
+			{     
+			       value:0.24,
+				   symbol: 'image://love-png/1.png',
+				   symbolSize:15
+			
+			}
+			, 
+			{
+                    value:0.26,
+					symbol: 'image://love-png/1.png',
+				   symbolSize:15
+                    //symbol: 'star',  // 数据级个性化拐点图形
+                    //symbolSize : 15,
+                    //itemStyle : { normal: {label : {
+                       // show: true,
+                        //textStyle : {
+                           // fontSize : '20',
+                            //fontFamily : '微软雅黑',
+                            //fontWeight : 'bold'
+                      //  }
+                   // }}}
+             } 
+			,
+			{     
+			       value:0.5,
+				   symbol: 'image://love-png/27.png',
+				   symbolSize:30
+			
+			},
+			{     
+			       value: 0.17,
+				   symbol: 'image://love-png/3.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:6.38,
+				   symbol: 'image://love-png1/27.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:1.67,
+				   symbol: 'image://love-png/5.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:0.16,
+				   symbol: 'image://love-png/28.png',
+				   symbolSize:20
+			
+			},
+			{     
+			       value:0.31,
+				   symbol: 'image://love-png/35.png',
+				   symbolSize:20
+			
+			},
+			{     
+			       value: 0.13,
+				   symbol: 'image://love-png/33.png',
+				   symbolSize:20
+			
+			},
+			{     
+			       value:0.15,
+				   symbol: 'image://love-png/9.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:0.15,
+				   symbol: 'image://love-png/10.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:0.23,
+				   symbol: 'image://love-png/11.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:1.77,
+				   symbol: 'image://love-png1/28.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:0.72,
+				   symbol: 'image://love-png/13.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:0.19,
+				   symbol: 'image://love-png/14.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:0.15,
+				   symbol: 'image://love-png/15.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:0.16,
+				   symbol: 'image://love-png/16.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:0.51,
+				   symbol: 'image://love-png/17.png',
+				   symbolSize:15
+			
+			},
+			{     
+			       value:2.67,
+				   symbol: 'image://love-png1/28.png',
+				   symbolSize:15
+			
+			}
+			]
+        }
+    ]
+};
+                    
+                    
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>

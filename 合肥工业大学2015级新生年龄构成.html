@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="echarts-2.2.7/build/dist/echarts.js"></script>
+	<script src="echarts-2.2.7/build/dist/timelineOption.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'echarts-2.2.7/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/pie' // 使用柱状图就加载line模块,按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom,初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+    title : {
+        text: '合肥工业大学2015级新生年龄构成图',
+        subtext: '我们拥有共同的事业',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:['1997年','1996年','1998年','1995年','1994年','1999年','1993年','1992年','1990年','2000年','1991年','1987年','2002年','1985年']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {
+                show: true, 
+                type: ['pie', 'funnel'],
+                option: {
+                    funnel: {
+                        x: '25%',
+                        width: '50%',
+                        funnelAlign: 'left',
+                        max: 1548
+                    }
+                }
+            },
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'出生时间（年）',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+			itemStyle : {
+                normal : {
+                    label : {
+                        position : 'outer',
+						formatter : "{b}"//{d}%
+                       // formatter : function (params) {                         
+                         // return (params.percent - 0).toFixed(0) + '%'
+                       // }
+                    },
+                    labelLine : {
+                        show : true
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : true,
+                        formatter : "{b}"//\n{d}%
+                    }
+                }
+                
+            },
+            data:[
+                {value:4265, name:'1997年'},
+                {value:1, name:'2002年'},
+                {value:715, name:'1998年'},
+				{value:1 ,name:'1987年'},
+                {value:520, name:'1995年'},
+				{value:4 ,name:'2000年'},
+                {value:84, name:'1994年'},
+				{value:48,name:'1999年'},
+				{value:14, name:'1993年'},
+				{value:2524, name:'1996年'},
+				{value:6 ,name:'1992年'},
+				{value:4, name:'1990年'},
+				{value:3, name:'1991年'},
+				{value:1, name:'1985年'}
+            ]
+        }
+    ]
+};
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>

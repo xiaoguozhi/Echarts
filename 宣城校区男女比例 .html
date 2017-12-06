@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="echarts-2.2.7/build/dist/echarts.js"></script>
+	<script src="echarts-2.2.7/build/dist/timelineOption.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'echarts-2.2.7/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/pie' // 使用柱状图就加载line模块,按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom,初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+    title : {
+        text: '合肥工业大学2015级新生宣城校区男女人数及其比例',
+        subtext: '厚德、笃学、崇实、尚新',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:['男生','女生']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {
+                show: true, 
+                type: ['pie', 'funnel'],
+                option: {
+                    funnel: {
+                        x: '25%',
+                        width: '50%',
+                        funnelAlign: 'left',
+                        max: 1548
+                    }
+                }
+            },
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'宣城校区男生与女生人数',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+			itemStyle : {
+                normal : {
+                    label : {
+                        position : 'inner',
+						formatter : "{b}\n{c}人\n{d}%"
+                       // formatter : function (params) {                         
+                         // return (params.percent - 0).toFixed(0) + '%'
+                       // }
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : true,
+                        formatter : "{b}\n{d}%"
+                    }
+                }
+                
+            },
+            data:[
+                {value: 2346, name:'男生'},
+                {value:650, name:'女生'},
+                
+                
+            ]
+        }
+    ]
+};
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>

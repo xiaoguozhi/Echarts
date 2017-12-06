@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="echarts-2.2.7/build/dist/echarts.js"></script>
+	<script src="echarts-2.2.7/build/dist/timebarOption.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'echarts-2.2.7/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' ,
+				'echarts/chart/line'// 使用柱状图就加载bar模块,按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom,初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+	title : {
+        text: '合肥工业大学2015级新生少数民族构成图（汉族除外）',
+        subtext: '五十六个民族是一家',
+        x:'center'},
+		
+    tooltip : {
+        trigger: 'axis'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar','stack','tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    legend: {
+        data:['少数民族同学个数柱状图','少数民族风情图'],
+		x:'left'
+    },
+    xAxis : [
+	{
+            type : 'category',
+            position: 'bottom',
+            //boundaryGap: true,
+            axisLabel : {
+                show:true,
+                interval: 'auto',    // {number}
+                rotate: 45,
+                margin: 8,
+                //formatter: '{value}月',
+                textStyle: {
+                    color: 'black',
+                    fontFamily: 'sans-serif',
+                    fontSize: 15,
+                    fontStyle: 'italic',
+                    fontWeight: 'bold'
+                }
+            },
+			
+			data : ['门巴族','朝鲜族','达斡尔族','水族','哈尼族','傈傈族','哈萨克族','黎族','侗族','瑶族','维吾尔族','苗族','壮族','回族','满族','土家族','蒙古族','藏族','布依族','彝族','白族','畲族','土族','锡伯族','柯尔族','仫佬族','东乡族']
+        }
+		
+		
+            ],
+    yAxis : [
+        {
+            type : 'value',
+            name : '人数（单位：人）',
+			max:85,
+            axisLabel : {
+                formatter: '{value} '
+            }
+        },
+        {
+            type : 'value',
+            name : '人数',
+			show:false,
+			max:80,
+            axisLabel : {
+                formatter: '{value} 人'
+            }
+        }
+    ],
+    series : [
+	    
+		
+		
+
+        {
+            name:'少数民族同学个数柱状图',
+            type:'bar',
+			color:'green',
+			itemStyle: {
+                normal: {
+                    color: function(params) {
+                        // build a color map as your need.
+                        var colorList = [
+                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0',
+						   '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                           '#D7504B','#C6E579'
+                        ];
+                        return colorList[params.dataIndex]
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c}'//{b}\n
+                    }
+                }
+				},
+	    
+			
+            data:[1, 1, 1, 2, 2, 2, 3, 5, 11, 14,24, 44,60,73,63,45,43,30,23,14,13,9,7,3,2,1,1]
+        },
+        
+        {
+            name:'少数民族风情图',
+            type:'line',
+            yAxisIndex: 1,
+            //stack: '总量',
+            smooth: true,
+            //symbol: 'image://png/little-boy-black.png',     // 系列级个性化拐点图形
+            symbolSize: 20,
+            data:[
+			{     //门巴族54
+			       value:8,
+				   symbol: 'image://56-png/54.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //朝鲜族10
+			       value:8,
+				   symbol: 'image://56-png/10.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //柯尔族29
+			       value:8,
+				   symbol: 'image://56-png/29.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //水族25
+			       value:10,
+				   symbol: 'image://56-png/25.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //哈尼族16
+			       value:10,
+				   symbol: 'image://56-png/16.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //傈傈族20
+			       value:10,
+				   symbol: 'image://56-png/20.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //哈萨克族17
+			       value:11,
+				   symbol: 'image://56-png/17.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //黎族19
+			       value:13,
+				   symbol: 'image://56-png/19.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //侗族 12
+			       value:19,
+				   symbol: 'image://56-png/12.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //瑶族13
+			       value:22,
+				   symbol: 'image://56-png/13.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //维吾尔族05
+			       value:32,
+				   symbol: 'image://56-png/05.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //苗族06
+			       value:52,
+				   symbol: 'image://56-png/06.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //壮族08
+			       value:68,
+				   symbol: 'image://56-png/08.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //回族03
+			       value:85,
+				   symbol: 'image://56-png/03.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //满族11
+			       value:71,
+				   symbol: 'image://56-png/11.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //土家族15
+			       value:53,
+				   symbol: 'image://56-png/15.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //蒙古族02
+			       value:51,
+				   symbol: 'image://56-png/02.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //藏族04
+			       value:38,
+				   symbol: 'image://56-png/04.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //布依族09
+			       value:32,
+				   symbol: 'image://56-png/09.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //彝族07
+			       value:22,
+				   symbol: 'image://56-png/07.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //白族14
+			       value:21,
+				   symbol: 'image://56-png/14.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //畲族22
+			       value:17,
+				   symbol: 'image://56-png/22.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //土族30
+			       value:15,
+				   symbol: 'image://56-png/30.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //锡伯族38
+			       value:11,
+				   symbol: 'image://56-png/38.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //柯尔族29
+			       value:10,
+				   symbol: 'image://56-png/29.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //仫佬族32
+			       value:9,
+				   symbol: 'image://56-png/32.PNG',
+				   symbolSize:25
+			
+			}
+			, 
+			{     //东乡族26
+			       value:9,
+				   symbol: 'image://56-png/26.PNG',
+				   symbolSize:25
+			
+			}
+			
+			]
+        }
+    ]
+};
+                    
+                    
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>
